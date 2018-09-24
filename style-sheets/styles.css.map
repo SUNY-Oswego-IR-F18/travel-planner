@@ -1,0 +1,16 @@
+{
+    "version": 3,
+    "mappings": "AIAA;;EAEE;AACF,AAAA,CAAC,CAAC;EACE,MAAM,EAAE,CAAC;EACT,OAAO,EAAE,CAAC;EACV,UAAU,EAAE,UAAU;CACzB;;AAED,AAAA,EAAE,EAAE,EAAE,EAAE,EAAE,EAAE,EAAE,CAAC;EACX,WAAW,EAAE,MAAM;CACtB;;AEXD;;EAEE;AACF,AAAA,IAAI,CAAC;EACD,WAAW,ELHA,WAAW,EAAE,KAAK,EAAE,UAAU;EKIzC,SAAS,ELiBI,QAAQ;EKhBrB,WAAW,ELOI,OAAO;CKNzB;;AAED,AAAA,CAAC,CAAC;EAAE,SAAS,EAAE,UAAsB;EACjC,WAAW,ELGI,OAAO;CKFzB;;AAED,AAAA,EAAE,CAAC;EACC,SAAS,ELIE,OAAO;EKHlB,WAAW,ELNE,OAAO;CKOvB;;AAED,AAAA,EAAE,CAAC;EACC,SAAS,ELAE,MAAM;EKCjB,WAAW,ELVE,QAAQ;CKWxB;;AAED,AAAA,EAAE,CAAC;EACC,SAAS,ELJE,OAAO;EKKlB,WAAW,ELdE,MAAM;CKetB;;AAED,AAAA,EAAE,CAAC;EACC,SAAS,ELRE,MAAM;EKSjB,WAAW,ELlBE,QAAQ;CKmBxB",
+    "sources": [
+        "styles.scss",
+        "modules/_typography.scss",
+        "modules/_colors.scss",
+        "modules/_responsiveness.scss",
+        "partials/_reset.scss",
+        "partials/_menus.scss",
+        "partials/_typography.scss",
+        "partials/_headers.scss"
+    ],
+    "names": [],
+    "file": "styles.css"
+}
