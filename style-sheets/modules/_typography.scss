@@ -1,0 +1,23 @@
+// Typefaces 
+$type-default: 'Open Sans', Arial, sans-serif;
+
+$weight-normal: 400;
+$weight-bold: 700;
+
+// Equilateral Triangle 
+
+// Baseline Grid 
+$line-height-h1: 4.35rem;      // 0.725 * 6
+$line-height-h2: 3.625rem;     // 0.725 * 5
+$line-height-h3: 2.9rem;       // 0.725 * 4
+$line-height-h4: 2.175rem;     // 0.725 * 3
+$line-height-body: 1.45rem;    // 0.725 * 2  (26.1 px ~ baseliner unit * 2)
+$margin-thin: 0.725rem;
+$margin-extreme-thin: 0.3625rem;       // 0.725 / 2
+
+// Modular Scale 
+$font-size-h1: 3.94rem;        // 5.075 / 1.2889 ~ 3.94
+$font-size-h2: 3.4rem;         // 4.35 / 1.2889 ~ 3.4
+$font-size-h3: 2.25rem;        // 2.9 / 1.2889 ~ 2.25
+$font-size-h4: 1.7rem;         // 2.175 / 1.2889 ~ 1.7
+$font-size-body: 1.125rem;     // 1.45 / 1.125 ~ 1.2889
