@@ -9,6 +9,12 @@
 </head>
 <body>
     
+    <div id="vue-root">
+        <label for="origin"></label>
+        <input type="text" id="origin" v-model="cityName" placeholder="Enter a city name in the US" style="display:block; width:100%;">
+        <button type="submit" @click="makeRequest">Submit</button>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
     <script src="scripts.js"></script>
 </body>
