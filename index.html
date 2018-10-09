@@ -9,6 +9,40 @@
 </head>
 <body>
     
+    <main id="vue-root">
+        <!-- The heading describes the purpose or contents of the form, the heading level depends on the page structure  -->
+        <section>
+            <div class="banner">
+                <h1>Travel Planner</h1>
+                <p>A succinct missions statement.</p>
+            </div>
+            <img src="images/road-trip-002.jpg" alt="hero image">
+        </section>
+        <!-- froms are designed for inputs -->
+        <!-- method is the form submission method; either get or post -->
+        <!-- action is what URI the data is being send to  -->
+        <!-- @submit.prevent prevents reloading the page -->
+        <form @submit.prevent="" class="search-form">   
+            <!-- Every form field needs a <label> -->
+            <!-- The most basic part of accessibility for forms: the for attribute tells the screenreader which label goes with which input -->     
+            <label for="origin">From</label>
+            <!-- <input>, <select>, <textarea> are some of the elements used to collect information -->
+            <!-- the id is used to assiciate each input field with a label -->
+            <input type="text" id="origin" v-model="cityName" placeholder="City">
+            
+            <label for="destination" style="color:rgb(187, 187, 187);">To</label>
+            <input type="text" id="destination" placeholder="City" style="color:rgb(187, 187, 187);" disabled>
+            
+            <label for="start-date" style="color:rgb(187, 187, 187);">Start Date (MM/DD/YYYY)</label>
+            <input type="date" id="start-date" style="color:rgb(187, 187, 187);" disabled>
+            
+            <label for="end-date" style="color:rgb(187, 187, 187);">End Date (MM/DD/YYYY)</label>
+            <input type="date" id="end-date" style="color:rgb(187, 187, 187);" disabled>
+
+            <button type="submit" @click="makeRequest" >Let's Go!</button>
+        </form>
+    </main>
+
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
     <script src="scripts.js"></script>
 </body>

@@ -6,18 +6,31 @@ $weight-bold: 700;
 
 // Equilateral Triangle 
 
-// Baseline Grid 
-$line-height-h1: 4.35rem;      // 0.725 * 6
-$line-height-h2: 3.625rem;     // 0.725 * 5
-$line-height-h3: 2.9rem;       // 0.725 * 4
-$line-height-h4: 2.175rem;     // 0.725 * 3
-$line-height-body: 1.45rem;    // 0.725 * 2  (26.1 px ~ baseliner unit * 2)
-$margin-thin: 0.725rem;
-$margin-extreme-thin: 0.3625rem;       // 0.725 / 2
+/* Baseline Grid & Modular Scale Version 1 */
+// $line-height-h1: 4.35rem;      // 0.725 * 6
+// $line-height-h2: 3.625rem;     // 0.725 * 5
+// $line-height-h3: 2.9rem;       // 0.725 * 4
+// $line-height-h4: 2.175rem;     // 0.725 * 3
+// $line-height-p: 1.45rem;    // 0.725 * 2  (26.1 px ~ baseliner unit * 2)
+// $margin-thin: 0.725rem;
+// $margin-extreme-thin: 0.3625rem;       // 0.725 / 2
+// $font-size-h1: 3.94rem;        // 5.075 / 1.2889 ~ 3.94
+// $font-size-h2: 3.4rem;         // 4.35 / 1.2889 ~ 3.4
+// $font-size-h3: 2.25rem;        // 2.9 / 1.2889 ~ 2.25
+// $font-size-h4: 1.7rem;         // 2.175 / 1.2889 ~ 1.7
+// $font-size-p: 1.125rem;     // 1.45 / 1.125 ~ 1.2889
 
-// Modular Scale 
-$font-size-h1: 3.94rem;        // 5.075 / 1.2889 ~ 3.94
-$font-size-h2: 3.4rem;         // 4.35 / 1.2889 ~ 3.4
-$font-size-h3: 2.25rem;        // 2.9 / 1.2889 ~ 2.25
-$font-size-h4: 1.7rem;         // 2.175 / 1.2889 ~ 1.7
-$font-size-body: 1.125rem;     // 1.45 / 1.125 ~ 1.2889
+/* Baseline Grid & Modular Scale(major second 8:9 1.125) Version 2 */
+$line-height-h1: 1.80rem;        // 0.15rem * 12; ideal-h1 = 1.602rem(25.632px) * 1.1 = 28.2px(1.7625rem) = 0.15rem * 11.75 ~ 0.15rem * 12
+$line-height-h2: 1.65rem;        // 0.15rem * 11; ideal-h2 = 1.424rem(22.784px) * 1.15 = 26.2px(1.6375rem) = 0.15rem * 10.9 ~ 0.15rem * 11
+$line-height-h3: 1.35rem;        // 0.15rem * 09; ideal-h3 = 1.125rem(20px) * 1.2 = 24px(1.35rem) = 0.15rem * 9
+$line-height-p: 1.5rem;          // 0.15rem * 10
+$margin-bottom-h1: 0.9rem;       // 0.15rem * 12 / 2
+$margin-bottom-h2: 0.825rem;     // 0.15rem * 11 / 2
+$margin-bottom-h3: 0.675rem;     // 0.15rem * 09 / 2  
+$margin-bottom-p: 0.75rem;       // 0.15rem * 10 / 2  
+$line-height-unit: 0.15rem;     
+$font-size-h1: 1.602rem;         
+$font-size-h2: 1.424rem;         
+$font-size-h3: 1.125rem;         
+$font-size-p: 1em;                

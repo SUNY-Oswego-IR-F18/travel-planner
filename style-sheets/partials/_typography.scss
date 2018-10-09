@@ -3,30 +3,34 @@
 */
 html { 
     font-family: $type-default; 
-    font-size: $font-size-body; 
-    line-height: $line-height-body; 
+    font-size: $font-size-p; 
+    line-height: $line-height-p; 
 }
 
-p { font-size: $font-size-body * 0.85; 
-    line-height: $line-height-body; 
+p { font-size: $font-size-p * 0.85; 
+    line-height: $line-height-p; 
+    margin-bottom: $margin-bottom-p;
 }
 
 h1 { 
     font-size: $font-size-h1; 
     line-height: $line-height-h1; 
+    margin-bottom: $margin-bottom-h1;
 }
 
 h2 { 
     font-size: $font-size-h2; 
     line-height: $line-height-h2; 
+    margin-bottom: $margin-bottom-h2;
 }
 
 h3 { 
     font-size: $font-size-h3; 
     line-height: $line-height-h3; 
+    margin-bottom: $margin-bottom-h3;
 }
 
-h4 { 
-    font-size: $font-size-h4; 
-    line-height: $line-height-h4; 
-}
+// h4 { 
+//     font-size: $font-size-h4; 
+//     line-height: $line-height-h4; 
+// }
