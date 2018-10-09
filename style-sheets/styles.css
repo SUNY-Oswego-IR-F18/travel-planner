@@ -1,3 +1,5 @@
+/* Baseline Grid & Modular Scale Version 1 */
+/* Baseline Grid & Modular Scale(major second 8:9 1.125) Version 2 */
 /*
     reset
 */
@@ -17,32 +19,116 @@ h1, h2, h3, h4 {
 */
 html {
   font-family: "Open Sans", Arial, sans-serif;
-  font-size: 1.125rem;
-  line-height: 1.45rem;
+  font-size: 1em;
+  line-height: 1.5rem;
 }
 
 p {
-  font-size: 0.95625rem;
-  line-height: 1.45rem;
+  font-size: 0.85em;
+  line-height: 1.5rem;
+  margin-bottom: 0.75rem;
 }
 
 h1 {
-  font-size: 3.94rem;
-  line-height: 4.35rem;
+  font-size: 1.602rem;
+  line-height: 1.8rem;
+  margin-bottom: 0.9rem;
 }
 
 h2 {
-  font-size: 3.4rem;
-  line-height: 3.625rem;
+  font-size: 1.424rem;
+  line-height: 1.65rem;
+  margin-bottom: 0.825rem;
 }
 
 h3 {
-  font-size: 2.25rem;
-  line-height: 2.9rem;
+  font-size: 1.125rem;
+  line-height: 1.35rem;
+  margin-bottom: 0.675rem;
 }
 
-h4 {
-  font-size: 1.7rem;
-  line-height: 2.175rem;
+/*
+    headers
+*/
+main > section:first-of-type {
+  position: relative;
+}
+
+.banner {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 40px;
+}
+
+h1 {
+  font-weight: 600;
+}
+
+p {
+  font-weight: 500;
+}
+
+img {
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .banner > h1 {
+    font-size: 3.204rem;
+    margin-top: 1.8rem;
+    margin-bottom: 1.8rem;
+  }
+  .banner > p {
+    font-size: 2em;
+  }
+  img {
+    width: 100vw;
+    height: 100vh;
+  }
+}
+
+/*
+    forms
+*/
+form {
+  width: 60%;
+  margin: 0.9rem auto;
+  padding: 0.75rem;
+  border: 0.5px solid #cccccc;
+  background: rgba(204, 204, 204, 0.3);
+  border-radius: 10px;
+}
+
+label, input, button {
+  display: block;
+  width: 100%;
+  font-size: 1em;
+  line-height: 1.5rem;
+}
+
+label {
+  margin-top: 0.75rem;
+  margin-bottom: 0.15rem;
+}
+
+button {
+  margin-top: 1.5rem;
+  padding: 0.375rem 0;
+  background: #cccccc;
+  border-radius: 20px;
+}
+
+@media screen and (min-width: 768px) {
+  main {
+    position: relative;
+  }
+  form {
+    background: rgba(204, 204, 204, 0.5);
+    position: absolute;
+    bottom: 60px;
+    right: 60px;
+    width: 35%;
+  }
 }
 /*# sourceMappingURL=styles.css.map */

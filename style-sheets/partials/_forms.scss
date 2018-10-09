@@ -1,0 +1,46 @@
+/*
+    forms
+*/
+
+form {
+    width: 60%;
+    margin: $margin-bottom-h1 auto;
+    padding: $margin-bottom-p;
+    border: 0.5px solid $grey;
+    background: hsla(0, 0%, 80%, 0.3);
+    border-radius: 10px;
+}
+
+label, input, button {
+    display: block;
+    width: 100%;
+    font-size: $font-size-p;
+    line-height: $line-height-p;
+}
+
+label {
+    margin-top: $margin-bottom-p;
+    margin-bottom: $line-height-unit;
+}
+
+button {
+    margin-top: $margin-bottom-p * 2;
+    padding: $margin-bottom-p / 2 0;
+    background: $grey;
+    border-radius: 20px;
+}
+
+@media screen and (min-width: $laptop-screen) { 
+
+    main {
+        position: relative;
+    }
+
+    form {
+        background: hsla(0, 0%, 80%, 0.5);
+        position: absolute;
+        bottom: 60px;
+        right: 60px;
+        width: 35%;
+    }
+}

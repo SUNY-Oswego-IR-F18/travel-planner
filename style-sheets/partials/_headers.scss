@@ -1,0 +1,45 @@
+/*
+    headers
+*/
+
+main > section:first-of-type {
+    position: relative;
+
+}
+
+.banner {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 40px;
+}
+
+h1 {
+    font-weight: 600;
+}
+
+p {
+    font-weight: 500;
+}
+
+img {
+    width: 100%;
+}
+
+@media screen and (min-width: $laptop-screen) {  
+
+    .banner > h1 {
+        font-size: $font-size-h1 * 2;
+        margin-top: $margin-bottom-h1 * 2;
+        margin-bottom: $margin-bottom-h1 * 2; 
+    }
+
+    .banner > p {
+        font-size: $font-size-p * 2;
+    }
+
+    img {
+        width: 100vw;
+        height: 100vh;
+    }
+}
