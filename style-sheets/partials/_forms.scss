@@ -23,11 +23,26 @@ label {
     margin-bottom: $line-height-unit;
 }
 
+input {
+    padding: $line-height-unit 0;
+    height: $line-height-h1; /* imp: to make text and date in the same height, not line-height */
+}
+
 button {
     margin-top: $margin-bottom-p * 2;
-    padding: $margin-bottom-p / 2 0;
-    background: $grey;
-    border-radius: 20px;
+    // padding: $margin-bottom-p / 2 0;
+    // background: $grey;
+    // border-radius: 20px;
+    // padding: $margin-bottom-p 0;
+    background: $orange;
+    color: $white;
+    border-radius: 5px;
+    border: 0;
+    height: $line-height-h3 * 2;
+}
+button:hover, button:focus {
+    cursor: pointer;
+    background: $orange-light;
 }
 
 @media screen and (min-width: $laptop-screen) { 
@@ -39,8 +54,10 @@ button {
     form {
         background: hsla(0, 0%, 80%, 0.5);
         position: absolute;
-        bottom: 60px;
-        right: 60px;
         width: 35%;
+        top: 28%;           // temp munual setting 
+        left: 32.5%;        // 50 - 35/2 = 32.5
+        // bottom: 60px;
+        // right: 60px;
     }
 }

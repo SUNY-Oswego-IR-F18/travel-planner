@@ -4,7 +4,6 @@
 
 main > section:first-of-type {
     position: relative;
-
 }
 
 .banner {
@@ -12,6 +11,7 @@ main > section:first-of-type {
     width: 100%;
     text-align: center;
     top: 40px;
+    z-index: 1;
 }
 
 h1 {
@@ -22,8 +22,31 @@ p {
     font-weight: 500;
 }
 
+.hero-image-container {
+    position: relative;
+}
+
 img {
     width: 100%;
+}
+
+.hero-image-container > p {
+    display: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    color: $white;
+    font-size: $font-size-credit;
+}
+
+.hero-image-container > p > a {
+    color: $white;
+}
+.hero-image-container > p > a:hover {
+    color: $orange;
 }
 
 @media screen and (min-width: $laptop-screen) {  
@@ -41,5 +64,10 @@ img {
     img {
         width: 100vw;
         height: 100vh;
+    }
+
+    .hero-image-container > p {
+        display: block;
+        margin: 0 $margin-bottom-p/2 $margin-bottom-p/2 0;
     }
 }
