@@ -59,6 +59,7 @@ main > section:first-of-type {
   width: 100%;
   text-align: center;
   top: 40px;
+  z-index: 1;
 }
 
 h1 {
@@ -69,8 +70,32 @@ p {
   font-weight: 500;
 }
 
+.hero-image-container {
+  position: relative;
+}
+
 img {
   width: 100%;
+}
+
+.hero-image-container > p {
+  display: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  color: white;
+  font-size: 0.346rem;
+}
+
+.hero-image-container > p > a {
+  color: white;
+}
+
+.hero-image-container > p > a:hover {
+  color: #fb8a28;
 }
 
 @media screen and (min-width: 768px) {
@@ -85,6 +110,11 @@ img {
   img {
     width: 100vw;
     height: 100vh;
+    vertical-align: middle;
+  }
+  .hero-image-container > p {
+    display: block;
+    margin: 0 0.375rem 0.375rem 0;
   }
 }
 
@@ -112,11 +142,28 @@ label {
   margin-bottom: 0.15rem;
 }
 
-button {
+input {
+  padding: 0.15rem 0;
+  height: 1.8rem;
+  /* imp: to make text and date in the same height, not line-height */
+}
+
+form a {
   margin-top: 1.5rem;
-  padding: 0.375rem 0;
-  background: #cccccc;
-  border-radius: 20px;
+  background: #fb8a28;
+  color: white;
+  border-radius: 5px;
+  border: 0;
+  padding: 0.66667em;
+  min-height: 3rem;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+}
+
+a:hover, button:focus {
+  cursor: pointer;
+  background: #fc9840;
 }
 
 @media screen and (min-width: 768px) {
@@ -126,9 +173,26 @@ button {
   form {
     background: rgba(204, 204, 204, 0.5);
     position: absolute;
-    bottom: 60px;
-    right: 60px;
     width: 35%;
+    top: 28%;
+    left: 32.5%;
   }
+}
+
+/* Always set the map height explicitly to define the size of the div element that contains the map. */
+#map {
+  width: 100%;
+  height: 93vh;
+}
+
+body > a {
+  height: 3.6rem;
+  background: #fb8a28;
+  color: white;
+  padding: 1em;
+  min-height: 3rem;
+  text-decoration: none;
+  display: block;
+  text-align: center;
 }
 /*# sourceMappingURL=styles.css.map */

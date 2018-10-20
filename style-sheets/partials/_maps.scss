@@ -1,0 +1,20 @@
+/* Always set the map height explicitly to define the size of the div element that contains the map. */
+#map {
+    width: 100%;
+    // temp method
+    height: 93vh;
+}
+
+body > a {
+    height: $line-height-h1 * 2;
+    background: $orange;
+    color: $white;
+
+    padding: $font-size-p;
+    min-height: $line-height-p * 2;
+
+    // a tag
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
