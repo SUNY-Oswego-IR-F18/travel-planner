@@ -89,14 +89,17 @@ let vm = new Vue({
             //// or use data binding
             
 
+            // focus on show route
+            document.getElementById("showRoute").focus();
+
         },
 
         handleOriginWeatherResponse () {
             if (this.originWeatherHttpRequest.readyState === XMLHttpRequest.DONE) {
                 //// debug console 
-                console.log(this.originWeatherHttpRequest.responseText);
+                //console.log(this.originWeatherHttpRequest.responseText);
                 if (this.originWeatherHttpRequest.status === this.XMLHttpResponseStatus.OK) {
-                    console.log(JSON.parse(this.originWeatherHttpRequest.responseText)["weather"][0]["description"]);
+                    //console.log(JSON.parse(this.originWeatherHttpRequest.responseText)["weather"][0]["description"]);
                 } else {
                     
                 }
@@ -108,7 +111,7 @@ let vm = new Vue({
 	    handleResponse() {
             if (this.originHttpRequest.readyState === XMLHttpRequest.DONE) {
                 //// debug console 
-                console.log(this.originHttpRequest.responseText);
+                //console.log(this.originHttpRequest.responseText);
                 if (this.originHttpRequest.status === this.XMLHttpResponseStatus.OK) {
                     this.updateUISuccess(this.originHttpRequest.responseText);
                 } else {
@@ -136,10 +139,10 @@ let vm = new Vue({
             // console.log(this.origin);
             // get data includes location.lat, location.lng, and place_id  
             //console.log(response.results[0].place_id);
-            console.log('origin:');
-            console.log('place id: ' + response.results[0].place_id);
-            console.log('lat:' + typeof(response.results[0].geometry.location.lat));
-            console.log('lng:' + response.results[0].geometry.location.lng);
+            // console.log('origin:');
+            // console.log('place id: ' + response.results[0].place_id);
+            // console.log('lat:' + typeof(response.results[0].geometry.location.lat));
+            // console.log('lng:' + response.results[0].geometry.location.lng);
             
             // var weatherHttpRequest = new XMLHttpRequest();
             
@@ -159,10 +162,10 @@ let vm = new Vue({
             this.destination.location.longtitude = response.results[0].geometry.location.lng;
             // debug
             //console.log(this.destination);
-            console.log('destination:');
-            console.log('place id: ' + response.results[0].place_id);
-            console.log('lat:' + response.results[0].geometry.location.lat);
-            console.log('lng:' + response.results[0].geometry.location.lng);
+            // console.log('destination:');
+            // console.log('place id: ' + response.results[0].place_id);
+            // console.log('lat:' + response.results[0].geometry.location.lat);
+            // console.log('lng:' + response.results[0].geometry.location.lng);
 
         },
         //// handle XHR error 
@@ -208,16 +211,54 @@ function showRoute() {
             //// render direction
             directionsDisplay.setDirections(result);
             for (let i = 0; i < result.routes[0].legs[0].steps.length; i++) {
-                let relayMarker = new google.maps.Marker({
-                    position: new google.maps.LatLng(
-                        Number(result.routes[0].legs[0].steps[i].start_location.lat()),
-                        Number(result.routes[0].legs[0].steps[i].start_location.lng())
-                    ),
-                    map: map
-                });
-                console.log('relay ' + i);
-                console.log(relayMarker.position.lat());
-                console.log(relayMarker.position.lng());
+                //// get origin geocoding data 
+                let relayWeatherRequest = new XMLHttpRequest();
+                relayWeatherRequest.onreadystatechange = (function(m) {
+                    return function () {
+                        if (relayWeatherRequest.readyState === XMLHttpRequest.DONE) {
+                            //// debug console 
+                            // console.log(relayWeatherRequest.responseText);
+                            if (relayWeatherRequest.status === vm.XMLHttpResponseStatus.OK) {
+                                //console.log(JSON.parse(relayWeatherRequest.responseText)["weather"][0]["description"]);
+                                var weatherDescription = JSON.parse(relayWeatherRequest.responseText)["weather"][0]["description"];
+                                
+                                var relayMarker = new google.maps.Marker({
+                                    position: new google.maps.LatLng(
+                                        Number(result.routes[0].legs[0].steps[i].start_location.lat()),
+                                        Number(result.routes[0].legs[0].steps[i].start_location.lng())
+                                    ),
+                                    icon: {url: weatherDescriptionToIcon[weatherDescription], scaledSize: new google.maps.Size(40, 40)},
+                                    map: m
+                                });
+                                // console.log('relay ' + i);
+                                // console.log(relayMarker.position.lat());
+                                // console.log(relayMarker.position.lng());
+
+                                relayMarker.setMap(m);
+                            } else {
+                                
+                            }
+                        }
+                    }
+                })(map);
+
+                relayWeatherRequest.open('GET', vm.weatherUrl + 
+                                                'lat=' + result.routes[0].legs[0].steps[i].start_location.lat() + 
+                                                '&lon=' + result.routes[0].legs[0].steps[i].start_location.lng() + 
+                                                '&appid=' + vm.weatherApiKey);
+                relayWeatherRequest.send();
+
+
+                // let relayMarker = new google.maps.Marker({
+                //     position: new google.maps.LatLng(
+                //         Number(result.routes[0].legs[0].steps[i].start_location.lat()),
+                //         Number(result.routes[0].legs[0].steps[i].start_location.lng())
+                //     ),
+                //     map: map
+                // });
+                // console.log('relay ' + i);
+                // console.log(relayMarker.position.lat());
+                // console.log(relayMarker.position.lng());
 
                 // var relayEndMarker = new google.maps.Marker({
                 //     position: new google.maps.LatLng(
@@ -231,27 +272,86 @@ function showRoute() {
                 //     lng: Number(result.routes[0].legs[0].steps[i].start_location.lng())
                 // }
                 // To add the marker to the map, call setMap();
-                relayMarker.setMap(map);
+                // relayMarker.setMap(map);
                 //relayEndMarker.setMap(map);
                 // console.log(relayMarker.position.lat);
                 // console.log(typeof(relayMarker.position.lat));
                 // console.log(result.routes[0].legs[0].steps[i].start_location);
             }
-            console.log(result);
+            //console.log(result);
             // console.log(result.routes[0].legs[0].steps[10].start_location.lng());
         }
     })
 }
 
 var iconBase = 'images/icons/';
-var icons = {
-    sun: iconBase + 'sun.svg',
-    clouds: iconBase + 'clouds.svg',
-    rainy: iconBase + 'raindrop.svg',
-    snowy: iconBase + 'snowflake.svg',
-    storm: iconBase + 'storm.svg',
-    moon: iconBase + 'moon.svg'
+var weatherDescriptionToIcon = {
+    "clear sky": iconBase + 'd-clear-sky.png',
+    "few clouds": iconBase + 'd-few-clouds.png',
+    "scattered clouds": iconBase + 'd-scattered-clouds.png',
+    "overcast clouds": iconBase + 'd-broken-clouds.png',
+    "broken clouds": iconBase + 'd-broken-clouds.png',
+    "shower rain": iconBase + 'd-shower-rain.png',
+    "light intensity drizzle": iconBase + 'd-shower-rain.png',
+    "drizzle": iconBase + 'd-shower-rain.png',
+    "heavy intensity drizzle": iconBase + 'd-shower-rain.png',
+    "light intensity drizzle rain": iconBase + 'd-shower-rain.png',
+    "drizzle rain": iconBase + 'd-shower-rain.png',
+    "heavy intensity drizzle rain": iconBase + 'd-shower-rain.png',
+    "shower rain and drizzle": iconBase + 'd-shower-rain.png',
+    "heavy shower rain and drizzle": iconBase + 'd-shower-rain.png',
+    "shower drizzle": iconBase + 'd-shower-rain.png',
+    "rain": iconBase + 'd-rain.png',
+    "light rain": iconBase + 'd-rain.png',
+    "moderate rain": iconBase + 'd-rain.png',
+    "heavy intensity rain": iconBase + 'd-rain.png',
+    "very heavy rain": iconBase + 'd-rain.png',
+    "extreme rain": iconBase + 'd-rain.png',
+    "freezing rain": iconBase + 'd-rain.png',
+    "light intensity shower rain": iconBase + 'd-rain.png',
+    "shower rain": iconBase + 'd-rain.png',
+    "heavy intensity shower rain": iconBase + 'd-rain.png',
+    "ragged shower rain": iconBase + 'd-rain.png',
+    "thunderstorm": iconBase + 'd-thunderstorm.png',
+    "thunderstorm with light rain": iconBase + 'd-thunderstorm.png',
+    "thunderstorm with rain": iconBase + 'd-thunderstorm.png',
+    "thunderstorm with heavy rain": iconBase + 'd-thunderstorm.png',
+    "light thunderstorm": iconBase + 'd-thunderstorm.png',
+    "heavy thunderstorm": iconBase + 'd-thunderstorm.png',
+    "ragged thunderstorm": iconBase + 'd-thunderstorm.png',
+    "thunderstorm with light drizzle": iconBase + 'd-thunderstorm.png',
+    "thunderstorm with drizzle": iconBase + 'd-thunderstorm.png',
+    "thunderstorm with heavy drizzle": iconBase + 'd-thunderstorm.png',
+    "snow": iconBase + 'd-snow.png',
+    "light snow": iconBase + 'd-snow.png',
+    "heavy snow": iconBase + 'd-snow.png',
+    "sleet": iconBase + 'd-snow.png',
+    "shower sleet": iconBase + 'd-snow.png',
+    "light rain and snow": iconBase + 'd-snow.png',
+    "rain and snow": iconBase + 'd-snow.png',
+    "light shower snow": iconBase + 'd-snow.png',
+    "shower snow": iconBase + 'd-snow.png',
+    "heavy shower snow": iconBase + 'd-snow.png',
+    "mist": iconBase + 'd-mist.png',
+    "smoke": iconBase + 'd-mist.png',
+    "haze": iconBase + 'd-mist.png',
+    "sand, dust whirls": iconBase + 'd-mist.png',
+    "fog": iconBase + 'd-mist.png',
+    "sand": iconBase + 'd-mist.png',
+    "dust": iconBase + 'd-mist.png',
+    "volcanic ash": iconBase + 'd-mist.png',
+    "squalls": iconBase + 'd-mist.png',
+    "tornado": iconBase + 'd-mist.png'
 }
+
+// var icons = {
+//     sun: iconBase + 'sun.svg',
+//     clouds: iconBase + 'clouds.svg',
+//     rainy: iconBase + 'raindrop.svg',
+//     snowy: iconBase + 'snowflake.svg',
+//     storm: iconBase + 'storm.svg',
+//     moon: iconBase + 'moon.svg'
+// }
 
 // const XMLHttpResponseStatus = {
 //     OK: 200,
