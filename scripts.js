@@ -10,6 +10,7 @@ let vm = new Vue({
         weatherApiKey: "8a5ef2f6226eb0720aa8e36f2744ec83",
         googleApiKey: "AIzaSyBM4CbIYX0wLoNtqc1ByqevwQo7rzYTUug",
         httpRequest: null,
+        originWeatherHttpRequest: null,
         originHttpRequest: null,
         destinationHttpRequest: null,
         XMLHttpResponseStatus: {
@@ -23,7 +24,8 @@ let vm = new Vue({
     },
     computed: {
         weatherUrl() {
-            return `http://api.openweathermap.org/data/2.5/forecast?q=${this.origin.placeName},${this.countryCode}`;
+            // return `http://api.openweathermap.org/data/2.5/forecast?q=${this.origin.placeName},${this.countryCode}`;
+            return `https://api.openweathermap.org/data/2.5/weather?`;
         },
         geocodingOriginUrl() {
             return `https://maps.googleapis.com/maps/api/geocode/json?address=${this.origin.placeName}`;
@@ -68,6 +70,8 @@ let vm = new Vue({
             // this.httpRequest.onreadystatechange = this.handleResponse;
             // this.httpRequest.open('GET', this.weatherUrl + '&appid=' + this.weatherApiKey);
             // this.httpRequest.send();
+            this.originWeatherHttpRequest = new XMLHttpRequest();
+            this.originWeatherHttpRequest.onreadystatechange = this.handleOriginWeatherResponse;
             //// get origin geocoding data 
             this.originHttpRequest = new XMLHttpRequest();
             this.originHttpRequest.onreadystatechange = this.handleResponse;
@@ -86,11 +90,25 @@ let vm = new Vue({
             
 
         },
+
+        handleOriginWeatherResponse () {
+            if (this.originWeatherHttpRequest.readyState === XMLHttpRequest.DONE) {
+                //// debug console 
+                console.log(this.originWeatherHttpRequest.responseText);
+                if (this.originWeatherHttpRequest.status === this.XMLHttpResponseStatus.OK) {
+                    console.log(JSON.parse(this.originWeatherHttpRequest.responseText)["weather"][0]["description"]);
+                } else {
+                    
+                }
+            }
+            // console.log('test');
+        },
+
         //// handle XHR response 
 	    handleResponse() {
             if (this.originHttpRequest.readyState === XMLHttpRequest.DONE) {
                 //// debug console 
-                // console.log(this.httpRequest.responseText);
+                console.log(this.originHttpRequest.responseText);
                 if (this.originHttpRequest.status === this.XMLHttpResponseStatus.OK) {
                     this.updateUISuccess(this.originHttpRequest.responseText);
                 } else {
@@ -116,8 +134,18 @@ let vm = new Vue({
             //// debug console 
             // console.log(response);
             // console.log(this.origin);
-            //// get data includes location.lat, location.lng, and place_id  
-            // console.log(response.results[0].place_id);
+            // get data includes location.lat, location.lng, and place_id  
+            //console.log(response.results[0].place_id);
+            console.log('origin:');
+            console.log('place id: ' + response.results[0].place_id);
+            console.log('lat:' + typeof(response.results[0].geometry.location.lat));
+            console.log('lng:' + response.results[0].geometry.location.lng);
+            
+            // var weatherHttpRequest = new XMLHttpRequest();
+            
+            this.originWeatherHttpRequest.open('GET', this.weatherUrl + 'lat=' + this.origin.location.latitude + '&lon=' + this.origin.location.longtitude + '&appid=' + this.weatherApiKey);
+            this.originWeatherHttpRequest.send();
+
             // console.log(response.results[0].geometry.location);
             //var degC = degK - 273.15;	
             //var degCInt = Math.floor(degC);
@@ -131,6 +159,11 @@ let vm = new Vue({
             this.destination.location.longtitude = response.results[0].geometry.location.lng;
             // debug
             //console.log(this.destination);
+            console.log('destination:');
+            console.log('place id: ' + response.results[0].place_id);
+            console.log('lat:' + response.results[0].geometry.location.lat);
+            console.log('lng:' + response.results[0].geometry.location.lng);
+
         },
         //// handle XHR error 
         updateUIError() {
@@ -148,6 +181,7 @@ function initMap() {
 }
 
 function showRoute() {
+    //// reference: https://www.youtube.com/watch?v=QuuL29iiOn0
     var directionsDisplay = new google.maps.DirectionsRenderer();
     var directionsService = new google.maps.DirectionsService();
     var routeOrigin = new google.maps.LatLng(vm.origin.location.latitude, vm.origin.location.longtitude);
@@ -167,13 +201,56 @@ function showRoute() {
         destination: routeDestination,
         travelMode: 'DRIVING'
     };
+    
     directionsService.route(request, function (result, status) {
         // console.log(result, status);
         if (status === 'OK') {
             //// render direction
             directionsDisplay.setDirections(result);
+            for (let i = 0; i < result.routes[0].legs[0].steps.length; i++) {
+                let relayMarker = new google.maps.Marker({
+                    position: new google.maps.LatLng(
+                        Number(result.routes[0].legs[0].steps[i].start_location.lat()),
+                        Number(result.routes[0].legs[0].steps[i].start_location.lng())
+                    ),
+                    map: map
+                });
+                console.log('relay ' + i);
+                console.log(relayMarker.position.lat());
+                console.log(relayMarker.position.lng());
+
+                // var relayEndMarker = new google.maps.Marker({
+                //     position: new google.maps.LatLng(
+                //         Number(result.routes[0].legs[0].steps[i].end_location.lat()),
+                //         Number(result.routes[0].legs[0].steps[i].end_location.lng())
+                //     ),
+                //     map: map
+                // })
+                // relayMarker.position = {
+                //     lat: Number(result.routes[0].legs[0].steps[i].start_location.lat()),
+                //     lng: Number(result.routes[0].legs[0].steps[i].start_location.lng())
+                // }
+                // To add the marker to the map, call setMap();
+                relayMarker.setMap(map);
+                //relayEndMarker.setMap(map);
+                // console.log(relayMarker.position.lat);
+                // console.log(typeof(relayMarker.position.lat));
+                // console.log(result.routes[0].legs[0].steps[i].start_location);
+            }
+            console.log(result);
+            // console.log(result.routes[0].legs[0].steps[10].start_location.lng());
         }
     })
+}
+
+var iconBase = 'images/icons/';
+var icons = {
+    sun: iconBase + 'sun.svg',
+    clouds: iconBase + 'clouds.svg',
+    rainy: iconBase + 'raindrop.svg',
+    snowy: iconBase + 'snowflake.svg',
+    storm: iconBase + 'storm.svg',
+    moon: iconBase + 'moon.svg'
 }
 
 // const XMLHttpResponseStatus = {
@@ -216,7 +293,7 @@ function showRoute() {
 // 			}
 // 		}
 //     }
-    
+
 //     // handle XHR success
 // 	function updateUISuccess(responseText) {
 //         let response = JSON.parse(responseText);
